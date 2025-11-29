@@ -1,0 +1,30 @@
+{% extends 'layouts/base.html' %}
+{% block title %}Tags{% endblock %}
+
+{% block content %}
+    <h1 class="mb-4">Tags</h1>
+
+    <a href="{% url 'tag_create' %}" class="btn btn-primary mb-3 float-end">Add tags</a>
+
+    <table class="table">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for tag in tags %}
+            <tr>
+                <td>{{ tag.name }}</td>
+                <td><a href="{% url 'tag_update' tag.id %}" class="btn btn-primary mb-3 float-end">Update</a></td>
+                <td><a href="{% url 'tag_delete' tag.id %}" class="btn btn-danger mb-3 float-end">Delete</a></td>
+            </tr>
+        {% empty %}
+            <tr>
+                <td colspan="3">No tags yet</td>
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
