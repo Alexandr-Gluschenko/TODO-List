@@ -1,0 +1,9 @@
+{% extends 'todo/base.html' %}
+{% block title %}TODO list{% endblock %}
+{% block content %}
+<h1 class="mb-4">TODO list</h1>
+
+<a href="{% url 'task_add'%}" class="btn btn-primary mb-3 float-end">Add task</a>
+{% for task in tasks %}
+
+{% endblock %}
