@@ -1,6 +1,6 @@
-from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from django.views import View
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 from django.shortcuts import redirect, get_object_or_404
 
 from .forms import TaskForm, TagForm
@@ -14,11 +14,13 @@ class HomePageView(ListView):
     context_object_name = 'tasks'
     ordering = ['is_done', '-created_at']
 
-def toggle_task_status(request, pk):
-    task = get_object_or_404(Task, pk=pk)
-    task.is_done = not task.is_done
-    task.save()
-    return redirect('home')
+class TaskToggleStatusView(View):
+    def post(self, request, pk):
+        task = get_object_or_404(Task, pk=pk)
+        task.is_done = not task.is_done
+        task.save()
+        return redirect('home')
+
 
 class TagPageListView(ListView):
     model = Tag

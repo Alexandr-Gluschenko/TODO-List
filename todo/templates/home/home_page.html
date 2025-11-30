@@ -34,11 +34,14 @@
         <a href="{% url 'task_delete' task.id %}">Delete</a>
     </p>
 
-    {% if task.is_done %}
-        <a href="{% url 'task_toggle' task.id %}" class="btn btn-secondary">Undo</a>
-    {% else %}
-        <a href="{% url 'task_toggle' task.id %}" class="btn btn-success">Complete</a>
-    {% endif %}
+    <form action="{% url 'task_toggle' task.id %}" method="post" style="display:inline;">
+        {% csrf_token %}
+        {% if task.is_done %}
+            <button class="btn btn-secondary">Undo</button>
+        {% else %}
+            <button class="btn btn-success">Complete</button>
+        {% endif %}
+    </form>
 </div>
 {% endfor %}
 {% endblock %}
